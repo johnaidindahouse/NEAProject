@@ -1,0 +1,275 @@
+[
+    {
+        "username": "restaurant_owner1",
+        "hashed_password": "hashed_password1",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant A",
+        "restaurant_address": "123 Main St",
+        "restaurant_number": "555-1234",
+        "menu": [
+            {
+                "name": "Dish 1",
+                "description": "Description of Dish 1",
+                "average_presentation": 85,
+                "average_taste": 90,
+                "average_price": 15
+            },
+            {
+                "name": "Dish 2",
+                "description": "Description of Dish 2",
+                "average_presentation": 70,
+                "average_taste": 80,
+                "average_price": 20
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner2",
+        "hashed_password": "hashed_password2",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant B",
+        "restaurant_address": "456 Elm St",
+        "restaurant_number": "555-5678",
+        "menu": [
+            {
+                "name": "Dish 3",
+                "description": "Description of Dish 3",
+                "average_presentation": 80,
+                "average_taste": 85,
+                "average_price": 18
+            },
+            {
+                "name": "Dish 4",
+                "description": "Description of Dish 4",
+                "average_presentation": 75,
+                "average_taste": 70,
+                "average_price": 22
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner3",
+        "hashed_password": "hashed_password3",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant C",
+        "restaurant_address": "789 Oak St",
+        "restaurant_number": "555-9012",
+        "menu": [
+            {
+                "name": "Dish 5",
+                "description": "Description of Dish 5",
+                "average_presentation": 90,
+                "average_taste": 95,
+                "average_price": 25
+            },
+            {
+                "name": "Dish 6",
+                "description": "Description of Dish 6",
+                "average_presentation": 85,
+                "average_taste": 80,
+                "average_price": 30
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner4",
+        "hashed_password": "hashed_password4",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant D",
+        "restaurant_address": "1011 Pine St",
+        "restaurant_number": "555-3456",
+        "menu": [
+            {
+                "name": "Dish 7",
+                "description": "Description of Dish 7",
+                "average_presentation": 70,
+                "average_taste": 75,
+                "average_price": 15
+            },
+            {
+                "name": "Dish 8",
+                "description": "Description of Dish 8",
+                "average_presentation": 65,
+                "average_taste": 70,
+                "average_price": 20
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner5",
+        "hashed_password": "hashed_password5",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant E",
+        "restaurant_address": "1213 Cedar St",
+        "restaurant_number": "555-6789",
+        "menu": [
+            {
+                "name": "Dish 9",
+                "description": "Description of Dish 9",
+                "average_presentation": 85,
+                "average_taste": 90,
+                "average_price": 25
+            },
+            {
+                "name": "Dish 10",
+                "description": "Description of Dish 10",
+                "average_presentation": 80,
+                "average_taste": 85,
+                "average_price": 30
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner6",
+        "hashed_password": "hashed_password6",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant F",
+        "restaurant_address": "1415 Maple St",
+        "restaurant_number": "555-2345",
+        "menu": [
+            {
+                "name": "Dish 11",
+                "description": "Description of Dish 11",
+                "average_presentation": 75,
+                "average_taste": 80,
+                "average_price": 20
+            },
+            {
+                "name": "Dish 12",
+                "description": "Description of Dish 12",
+                "average_presentation": 70,
+                "average_taste": 75,
+                "average_price": 25
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner7",
+        "hashed_password": "hashed_password7",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant G",
+        "restaurant_address": "1617 Walnut St",
+        "restaurant_number": "555-7890",
+        "menu": [
+            {
+                "name": "Dish 13",
+                "description": "Description of Dish 13",
+                "average_presentation": 80,
+                "average_taste": 85,
+                "average_price": 30
+            },
+            {
+                "name": "Dish 14",
+                "description": "Description of Dish 14",
+                "average_presentation": 75,
+                "average_taste": 70,
+                "average_price": 35
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner8",
+        "hashed_password": "hashed_password8",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant H",
+        "restaurant_address": "1819 Oak St",
+        "restaurant_number": "555-4567",
+        "menu": [
+            {
+                "name": "Dish 15",
+                "description": "Description of Dish 15",
+                "average_presentation": 90,
+                "average_taste": 95,
+                "average_price": 35
+            },
+            {
+                "name": "Dish 16",
+                "description": "Description of Dish 16",
+                "average_presentation": 85,
+                "average_taste": 90,
+                "average_price": 40
+            }
+        ]
+    },
+    {
+        "username": "restaurant_owner9",
+        "hashed_password": "",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "Restaurant I",
+        "restaurant_address": "2021 Cedar St",
+        "restaurant_number": "555-5678",
+        "menu": [
+            {
+                "name": "Dish 17",
+                "description": "Description of Dish 17",
+                "average_presentation": 70,
+                "average_taste": 75,
+                "average_price": 30
+            },
+            {
+                "name": "Dish 18",
+                "description": "Description of Dish 18",
+                "average_presentation": 65,
+                "average_taste": 70,
+                "average_price": 35
+            }
+        ]
+    },
+    {
+        "username": "New Restaurant",
+        "hashed_password": "e7cf3ef4f17c3999a94f2c6f612e8a888e5b1026878e4e19398b23bd38ec221a",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "New Restaurant",
+        "restaurant_address": "Restaurant Road, New York",
+        "restaurant_number": "012 345 6789",
+        "menu": [
+            {
+                "name": "New Item Added",
+                "description": "A new menu Item ",
+                "average_presentation": null,
+                "average_taste": null,
+                "average_price": null
+            }
+        ]
+    },
+    {
+        "username": "new",
+        "hashed_password": "11507a0e2f5e69d5dfa40a62a1bd7b6ee57e6bcd85c67c9b8431b36fff21c437",
+        "user_type": "restaurant_owner",
+        "restaurant_name": "new",
+        "restaurant_address": "new",
+        "restaurant_number": "new",
+        "menu": [
+            {
+                "name": "This dish has been edited",
+                "description": "testing",
+                "average_presentation": null,
+                "average_taste": null,
+                "average_price": null
+            },
+            {
+                "name": "Oh wow a new dish",
+                "description": "this is cool yes",
+                "average_presentation": null,
+                "average_taste": null,
+                "average_price": null
+            },
+            {
+                "name": "New dish",
+                "description": "new dish",
+                "average_presentation": 30.333333333333332,
+                "average_taste": 8.0,
+                "average_price": 15.0,
+                "number_of_ratings": 3
+            },
+            {
+                "name": "Fish and Chips",
+                "description": "Salted Chips with a fish battered and covered in breadcrumbs",
+                "average_presentation": 33.666666666666664,
+                "average_taste": 54.0,
+                "average_price": 21.0,
+                "number_of_ratings": 3
+            }
+        ]
+    }
+]
