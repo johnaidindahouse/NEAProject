@@ -1,0 +1,476 @@
+[
+    {
+        "username": "New",
+        "hashed_password": "18fdd549b2ed367ac0c74cbec1214644728515b30edbcb78e7d322757a7c8359",
+        "user_type": "diner",
+        "user_ratings": [
+            {
+                "dish_name": "Dish 1",
+                "restaurant_name": "Restaurant A",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 4.0
+            },
+            {
+                "dish_name": "Dish 4",
+                "restaurant_name": "Restaurant B",
+                "presentation": 3.4,
+                "taste": 1.6,
+                "price": 4.8
+            },
+            {
+                "dish_name": "Dish 2",
+                "restaurant_name": "Restaurant A",
+                "presentation": 2.4,
+                "taste": 7.4,
+                "price": 3.9
+            },
+            {
+                "dish_name": "Dish 1",
+                "restaurant_name": "Restaurant A",
+                "presentation": 1.6,
+                "taste": 4.6,
+                "price": 6.4
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            }
+        ]
+    },
+    {
+        "username": "Account",
+        "hashed_password": "7e1b0d5641f2640ce9a953ec231eea2c27a2a7633f7d3c273e5735e2b30c10b7",
+        "user_type": "diner",
+        "user_ratings": [
+            {
+                "dish_name": "Dish 2",
+                "restaurant_name": "Restaurant A",
+                "presentation": 2.4,
+                "taste": 7.4,
+                "price": 3.9
+            },
+            {
+                "dish_name": "Dish 1",
+                "restaurant_name": "Restaurant A",
+                "presentation": 1.6,
+                "taste": 4.6,
+                "price": 6.4
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            }
+        ]
+    },
+    {
+        "username": "newaccount",
+        "hashed_password": "082b05c4bbbe0efc5828f48cca65dd1332bd490950fa4337fe77e19d6c4d4169",
+        "user_type": "diner",
+        "user_ratings": [
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            }
+        ]
+    },
+    {
+        "username": "Junaid",
+        "hashed_password": "9005f31e4d12a8a72bce7d24debbe956d980042f554019212017d36641ac9df0",
+        "user_type": "diner",
+        "user_ratings": [
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "Oh wow a new dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "restaurant_name": "new",
+                "presentation": 1.0,
+                "taste": 2.0,
+                "price": 3.0
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 12,
+                "taste": 2,
+                "price": 34
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 2
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 1,
+                "price": 1
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 1,
+                "price": 1
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 1,
+                "price": 1
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 1,
+                "price": 1
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 13,
+                "price": 4
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 2,
+                "taste": 3,
+                "price": 4
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 2,
+                "taste": 3,
+                "price": 4
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 2,
+                "taste": 3,
+                "price": 4
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 2,
+                "taste": 3,
+                "price": 4
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 3,
+                "taste": 3,
+                "price": 4
+            },
+            {
+                "dish_name": "New dish",
+                "presentation": 87,
+                "taste": 19,
+                "price": 38
+            },
+            {
+                "dish_name": "Fish and Chips",
+                "presentation": 50,
+                "taste": 80,
+                "price": 30
+            },
+            {
+                "restaurant_name": "new",
+                "dish_name": "Fish and Chips",
+                "presentation": 1,
+                "taste": 2,
+                "price": 3
+            },
+            {
+                "restaurant_name": "new",
+                "dish_name": "Fish and Chips",
+                "presentation": 50,
+                "taste": 80,
+                "price": 30
+            }
+        ]
+    }
+]
