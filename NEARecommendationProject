@@ -1,0 +1,871 @@
+import tkinter as tk
+from tkinter import messagebox
+import json
+import os
+import hashlib
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+from collections import defaultdict
+
+class UserManagementSystem:
+
+    def __init__(self, root):
+        
+        self.root = root
+        self.root.title("User Management System")
+        self.root.attributes("-fullscreen", True)
+        self.root.attributes("-zoomed", True)
+        self.start_page()
+
+    ### Start Page ###
+    
+    def start_page(self):
+        
+        self.clear_window()
+        label = tk.Label(self.root, text="Welcome User!")
+        label.pack()
+
+        sign_up_button = tk.Button(self.root, text="Sign Up", command=self.sign_up)
+        sign_up_button.pack()
+
+        log_in_button = tk.Button(self.root, text="Log In", command=self.log_in)
+        log_in_button.pack()
+
+    
+
+    def sign_up(self):
+        
+        self.clear_window()
+        self.user_type = tk.StringVar(value="diner")  
+
+
+        close_button = tk.Button(self.root, text="x", command=self.start_page)
+        close_button.pack(side="top", anchor="e")
+
+        tk.Label(self.root, text="Sign Up").pack()
+
+        diner_radio = tk.Radiobutton(
+            self.root, 
+            text="Diner",
+            variable=self.user_type, 
+            value="diner",
+            command=self.hide_owner_entries)
+        diner_radio.pack()
+
+        restaurant_owner_radio = tk.Radiobutton(
+            self.root, 
+            text="Restaurant Owner", 
+            variable=self.user_type, 
+            value="restaurant_owner", 
+            command=self.show_owner_entries
+        )
+        restaurant_owner_radio.pack()
+
+        tk.Label(self.root, text="Username:").pack()
+        self.username_entry = tk.Entry(self.root)
+        self.username_entry.pack()
+
+        tk.Label(self.root, text="Password:").pack()
+        self.password_entry = tk.Entry(self.root, show="*")
+        self.password_entry.pack()
+
+        self.restaurant_name_label = tk.Label(self.root, text="Restaurant Name:")
+        self.restaurant_name_entry = tk.Entry(self.root)
+
+        self.restaurant_address_label = tk.Label(self.root, text="Restaurant Address:")
+        self.restaurant_address_entry = tk.Entry(self.root)
+
+        self.restaurant_number_label = tk.Label(self.root, text="Restaurant Number:")
+        self.restaurant_number_entry = tk.Entry(self.root)
+
+        sign_up_button = tk.Button(self.root, text="Submit", command=self.process_sign_up)
+        sign_up_button.pack()
+
+
+    
+    def process_sign_up(self):
+        
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        if self.user_type.get() == "diner":
+            filename = "diners.json"
+            new_user = {
+                "username": username,
+                "hashed_password": hashed_password,
+                "user_type": "diner"
+            }
+        else:
+            filename = "restaurantOwners.json"
+            restaurant_name = self.restaurant_name_entry.get()
+            restaurant_address = self.restaurant_address_entry.get()
+            restaurant_number = self.restaurant_number_entry.get()
+            new_user = {"username": username,
+                        "hashed_password": hashed_password,
+                        "user_type": "restaurant_owner",
+                        "restaurant_name": restaurant_name,
+                        "restaurant_address": restaurant_address,
+                        "restaurant_number": restaurant_number}
+
+        if not os.path.exists(filename):
+            
+            with open(filename, 'w') as f:
+                json.dump([new_user], f, indent=4)
+        else:
+            
+            with open(filename, 'r+') as f:
+                data = json.load(f)
+                for user in data:
+                    
+                    if user["username"] == username:
+                        messagebox.showerror("Error", "Username already exists!")
+                        return
+                data.append(new_user)
+                f.seek(0)
+                json.dump(data, f, indent=4)
+
+        messagebox.showinfo("Success", "Signed up successfully!")
+        self.start_page()
+
+
+
+    def log_in(self):
+        
+        self.clear_window()
+
+        close_button = tk.Button(self.root, text="x", command=self.start_page)
+        close_button.pack(side="top", anchor="e")
+
+        tk.Label(self.root, text="Log In").pack()
+
+        tk.Label(self.root, text="Username:").pack()
+        self.username_entry = tk.Entry(self.root)
+        self.username_entry.pack()
+
+        tk.Label(self.root, text="Password:").pack()
+        self.password_entry = tk.Entry(self.root, show="*")
+        self.password_entry.pack()
+
+        log_in_button = tk.Button(self.root, text="Log In", command=self.process_log_in)
+        log_in_button.pack()
+
+    
+
+    def process_log_in(self):
+        
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        # Store the username of the logged-in user
+        self.logged_in_username = username
+        
+        with open("diners.json", 'r') as f:
+            data = json.load(f)
+            for user in data:
+                
+                if user["username"] == username and user["hashed_password"] == hashed_password:
+                    user_type = user["user_type"]
+                    self.diner_home_page()
+                else:
+                    
+                    with open("restaurantOwners.json", 'r') as f:
+                        data = json.load(f)
+                        for user in data:
+                            
+                            try:
+                                
+                                if user["username"] == username and user["hashed_password"] == hashed_password:
+                                    user_type = user["user_type"]
+                                    self.restaurant_owner_home_page()
+                            except:
+                                messagebox.showerror("Error", "Invalid username or password!")
+                                return
+                                
+                
+
+    ### Diner Home Page ###
+    
+    def diner_home_page(self):
+        
+        self.clear_window()
+        tk.Label(self.root, text="Diner Home Page").pack()
+
+        search_menus_button = tk.Button(self.root, text="Search for Restaurant Menu", command=self.search_menus)
+        search_menus_button.pack()
+
+        diner_ratings_button = tk.Button(self.root, text="My Rating History", command=self.diner_ratings)
+        diner_ratings_button.pack()
+
+        recommend_dish_button = tk.Button(self.root, text="Recommend a Dish", command=self.recommend_dish)
+        recommend_dish_button.pack()
+
+        sign_out_button = tk.Button(self.root, text="Sign Out", command=self.sign_out)
+        sign_out_button.pack()
+
+
+
+    def search_menus(self):
+        
+        self.clear_window()
+
+        tk.Button(self.root, text="x", command=self.diner_home_page).pack(side="top", anchor="ne")
+        search_frame = tk.Frame(self.root)
+        search_frame.pack()
+
+        
+        def submit_search():
+            global input_text
+            input_text = self.search_entry.get()
+
+            
+            if os.path.exists("restaurantOwners.json"):
+                with open("restaurantOwners.json", 'r') as f:
+                    data = json.load(f)
+                    found_restaurants = []
+                    for user in data:
+                        if user.get("restaurant_name") == input_text:
+                            found_restaurants.append(user)
+
+                    if not found_restaurants:
+                        messagebox.showerror("Error", "No restaurants found!")
+                    else:
+                        for restaurant in found_restaurants:
+                            show_menu(restaurant)
+
+
+        def show_menu(restaurant):
+            
+            self.clear_window()
+
+            tk.Label(self.root, text="Restaurant Menu").pack()
+            menu_frame = tk.Frame(self.root)
+            menu_frame.pack()
+
+            close_button = tk.Button(menu_frame, text="x", command=self.diner_home_page)
+            close_button.pack(side="top", anchor="e")
+
+            scrollbar = tk.Scrollbar(menu_frame, orient="vertical")
+            scrollbar.pack(side="right", fill="y")
+
+            menu_list = tk.Listbox(menu_frame, yscrollcommand=scrollbar.set)
+            menu_list.pack(side="left", fill="both", expand=True)
+
+            for item in restaurant.get("menu", []):
+                description = item.get("description", "")
+                name = item.get("name", "")
+                menu_list.insert("end", f"{name}: {description}")
+                tk.Button(menu_frame, text="Add User Rating",
+                          command=lambda d=name: self.add_user_rating(d)).pack()
+
+            scrollbar.config(command=menu_list.yview)
+        
+
+        tk.Label(self.root, text="Search For Restaurants").pack()
+        search_entry = tk.Entry(search_frame)
+        search_entry.pack()
+        submit_button = tk.Button(search_frame, text="Submit", command=submit_search)
+        submit_button.pack()
+        self.search_entry = search_entry
+
+    
+
+    def add_user_rating(self, dish_name):
+        # Function to add user rating for a dish
+        self.clear_window()
+
+        # Set up the window title
+        self.root.title("Add User Rating")
+
+        # Create a frame for the rating form
+        rating_frame = tk.Frame(self.root)
+        rating_frame.pack()
+
+        # Create a close button to return to show_menu function
+        close_button = tk.Button(rating_frame, text="x", command=lambda: self.diner_home_page())
+        close_button.pack(side="top", anchor="e")
+
+        # Create labels and entry fields for presentation, taste, and price ratings
+        tk.Label(rating_frame, text="Presentation (0-100):").pack()
+        self.presentation_entry = tk.Entry(rating_frame)
+        self.presentation_entry.pack()
+
+        tk.Label(rating_frame, text="Taste (0-100):").pack()
+        self.taste_entry = tk.Entry(rating_frame)
+        self.taste_entry.pack()
+
+        tk.Label(rating_frame, text="Price (0-100):").pack()
+        self.price_entry = tk.Entry(rating_frame)
+        self.price_entry.pack()
+
+        # Create a submit button to trigger update_average_ratings function
+        submit_button = tk.Button(rating_frame, text="Submit", command=lambda: self.update_average_ratings(dish_name))
+        submit_button.pack()
+
+
+    
+    def update_average_ratings(self, dish_name):
+        presentation = int(self.presentation_entry.get())
+        taste = int(self.taste_entry.get())
+        price = int(self.price_entry.get())
+
+        if presentation == "" or taste == "" or price == "":
+            messagebox.showerror("Error", "Please enter all three ratings!")
+            return
+
+        username = self.logged_in_username
+        if username is None:
+            messagebox.showerror("Error", "Username not found!")
+            return
+
+        if os.path.exists("diners.json"):
+            with open("diners.json", 'r+') as f:
+                data = json.load(f)
+                for user in data:
+                    if user["username"] == username:
+                        user_ratings = {"restaurant_name": input_text, "dish_name": dish_name, "presentation": presentation, "taste": taste, "price": price}
+                        if "user_ratings" in user:
+                            user["user_ratings"].append(user_ratings)
+                        else:
+                            user["user_ratings"] = [user_ratings]
+                        f.seek(0)
+                        json.dump(data, f, indent=4)
+                        f.truncate()
+                        break
+                else:
+                    messagebox.showerror("Error", "User not found in diners.json!")
+                    return
+        else:
+            messagebox.showerror("Error", "diners.json not found!")
+            return
+
+        if os.path.exists("restaurantOwners.json"):
+            with open("restaurantOwners.json", 'r+') as f:
+                data = json.load(f)
+                for restaurant in data:
+                    for item in restaurant["menu"]:
+                        if item["name"] == dish_name:
+                            num_ratings = item.get("number_of_ratings", 0)
+                            total_presentation = item.get("average_presentation", 0) * num_ratings + presentation
+                            total_taste = item.get("average_taste", 0) * num_ratings + taste
+                            total_price = item.get("average_price", 0) * num_ratings + price
+
+                            num_ratings += 1
+
+                            item["average_presentation"] = total_presentation / num_ratings
+                            item["average_taste"] = total_taste / num_ratings
+                            item["average_price"] = total_price / num_ratings
+                            item["number_of_ratings"] = num_ratings
+                            f.seek(0)
+                            json.dump(data, f, indent=4)
+                            f.truncate()
+                            messagebox.showinfo("Success", "User rating added successfully!")
+                            self.diner_home_page()
+                            return
+
+                # If the loop completes without finding the dish
+                messagebox.showerror("Error", "Dish not found in restaurant's menu!")
+                return
+        else:
+            messagebox.showerror("Error", "restaurantOwners.json not found!")
+            return
+
+
+
+    
+    def diner_ratings(self):
+        
+        self.clear_window()
+
+        # Set the title of the new window
+        self.root.title("My Ratings History")
+
+        # Create a new window frame
+        ratings_frame = tk.Frame(self.root)
+        ratings_frame.pack(fill=tk.BOTH, expand=True)
+
+        # Create a close button to return to diner Home Page
+        close_button = tk.Button(ratings_frame, text="x", command=self.diner_home_page)
+        close_button.pack(side="top", anchor="e")
+
+        # Create a scrollbar for the ratings
+        scrollbar = tk.Scrollbar(ratings_frame, orient=tk.VERTICAL)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Create a canvas to contain the ratings
+        canvas = tk.Canvas(ratings_frame, yscrollcommand=scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        # Configure the scrollbar to work with the canvas
+        scrollbar.config(command=canvas.yview)
+
+        # Create a frame to hold the ratings content
+        ratings_content_frame = tk.Frame(canvas)
+        canvas.create_window((0, 0), window=ratings_content_frame, anchor=tk.NW)
+
+        # Bind mousewheel event to scroll the canvas
+        canvas.bind_all("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
+
+        # Find the user in the diners.json file based on logged in username
+        if os.path.exists("diners.json"):
+            
+            with open("diners.json", 'r') as f:
+                data = json.load(f)
+                for user in data:
+                    
+                    if user["username"] == self.logged_in_username:
+                        ratings = user.get("user_ratings", [])
+                        for rating in ratings:
+                            # Fetch restaurant name from the 'restaurant_name' key in user_ratings
+                            restaurant_name = rating.get("restaurant_name", "Unknown Restaurant")
+                            dish_name = rating.get("dish_name", "Unknown Dish")
+                            presentation = rating.get("presentation", "N/A")
+                            taste = rating.get("taste", "N/A")
+                            price = rating.get("price", "N/A")
+
+
+                            # Display each rating
+                            label = tk.Label(
+                                ratings_content_frame,
+                                text=f'''Restaurant: {restaurant_name}
+                                \nDish: {dish_name}
+                                \nPresentation: {presentation}
+                                \nTaste: {taste}
+                                \nPrice: {price}
+                                '''
+                            )
+                            label.pack(anchor=tk.W)
+
+                        break
+
+        # Update canvas and configure scroll region
+        canvas.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox(tk.ALL))
+
+
+
+    def recommend_dish(self):
+        
+        # Function to recommend a dish to the user
+        self.clear_window()
+
+        search_frame = tk.Frame(self.root)
+        search_frame.pack()
+
+        tk.Button(self.root, text="x", command=self.diner_home_page).pack(side="right", anchor="ne")
+
+        restaurant_entry_label = tk.Label(self.root, text="Enter Restaurant Name:")
+        restaurant_entry_label.pack()
+        restaurant_entry = tk.Entry(self.root)
+        restaurant_entry.pack()
+
+
+        submit_button = tk.Button(self.root, text="Submit", command=lambda: self.get_recommendation(restaurant_entry.get()))
+        submit_button.pack()
+
+
+    
+    def get_recommendation(self, restaurant_name):
+        
+        # Function to get recommendation based on the specified restaurant
+        user_ratings = self.load_user_ratings()
+        all_ratings = self.load_all_ratings()
+
+        # Filter ratings for the specified restaurant
+        restaurant_ratings = [rating for username, ratings in all_ratings.items() for rating in ratings if rating["restaurant_name"] == restaurant_name]
+
+        if not restaurant_ratings:
+            messagebox.showerror("Error", f"No ratings found for {restaurant_name}.")
+            return
+
+        # Calculate similarity between the current user and other users
+        user_ratings_matrix = np.array([[float(r["presentation"]), float(r["taste"]), float(r["price"])] for r in user_ratings])
+        other_users_ratings_matrix = np.array([[float(r["presentation"]), float(r["taste"]), float(r["price"])] for r in restaurant_ratings])
+
+        similarities = cosine_similarity(user_ratings_matrix, other_users_ratings_matrix)
+
+        # Find users with highest similarity to the current user
+        similar_users_indices = np.argsort(similarities)[-1]
+
+        # Recommend dishes based on similar users' ratings
+        recommended_dishes = defaultdict(int)
+        for idx in similar_users_indices:
+            other_user_ratings = all_ratings[idx]
+            for rating in other_user_ratings:
+                dish_name = rating["dish_name"]
+                if dish_name not in [r["dish_name"] for r in user_ratings]:
+                    recommended_dishes[dish_name] += 1
+
+        # Sort recommended dishes by the number of similar users who liked them
+        recommended_dishes = sorted(recommended_dishes.items(), key=lambda x: x[1], reverse=True)
+
+        # Display recommended dish
+        self.display_recommendation(recommended_dishes)
+
+    
+
+    def display_recommendation(self, recommended_dishes):
+        
+        # Function to display the recommended dish
+        self.clear_window()
+
+        tk.Label(self.root, text="Recommended Dish").pack()
+
+
+        dish_name = recommended_dishes[0][0]  # Get the name of the top recommended dish
+        tk.Label(self.root, text=f"Recommended Dish: {dish_name}").pack()
+
+        # Button to return to diner home page
+        close_button = tk.Button(self.root, text="x", command=self.diner_home_page)
+        close_button.pack(side="top", anchor="e")
+
+    
+
+    def load_user_ratings(self):
+        
+        # Function to load user ratings from diners.json for the current user
+        user_ratings = []
+        if os.path.exists("diners.json"):
+            
+            with open("diners.json", 'r') as f:
+                diner_data = json.load(f)
+                for diner in diner_data:
+                    
+                    if diner.get("username") == self.logged_in_username:
+                        user_ratings.extend(diner.get("user_ratings", []))
+        return user_ratings
+
+
+
+    def load_all_ratings(self):
+        
+        # Function to load all user ratings from diners.json
+        all_ratings = defaultdict(list)
+        if os.path.exists("diners.json"):
+            with open("diners.json", 'r') as f:
+                diner_data = json.load(f)
+                for diner in diner_data:
+                    for rating in diner.get("user_ratings", []):
+                        all_ratings[diner.get("username")].append(rating)
+        return all_ratings
+
+    ### Restaurant Owner Home Page ###
+
+    def restaurant_owner_home_page(self):
+
+        self.clear_window()
+        self.root.title("Restaurant Owner Home Page")
+
+        tk.Label(self.root, text="Restaurant Owner Home Page").pack()
+
+        my_menu_button = tk.Button(self.root, text="My Menu", command=self.my_menu)
+        my_menu_button.pack()
+
+        add_menu_item_button = tk.Button(self.root, text="Add Menu Item", command=self.add_menu_item)
+        add_menu_item_button.pack()
+
+        sign_out_button = tk.Button(self.root, text="Sign Out", command=self.sign_out)
+        sign_out_button.pack()
+
+
+
+    def my_menu(self):
+        
+        self.clear_window()
+
+        menu_frame = tk.Frame(self.root)
+        menu_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.root.title("My Menu")
+
+        close_button = tk.Button(menu_frame, text="x", command=self.restaurant_owner_home_page)
+        close_button.pack(side="top", anchor="e")
+
+        scrollbar = tk.Scrollbar(menu_frame, orient=tk.VERTICAL)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        canvas = tk.Canvas(menu_frame, yscrollcommand=scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        scrollbar.config(command=canvas.yview)
+
+        menu_items_frame = tk.Frame(canvas)
+        canvas.create_window((0, 0), window=menu_items_frame, anchor=tk.NW)
+
+        canvas.bind_all("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1*(event.delta/120)), "units"))
+
+        if os.path.exists("restaurantOwners.json"):
+            
+            with open("restaurantOwners.json", 'r') as f:
+                data = json.load(f)
+                for user in data:
+                    
+                    if user["user_type"] == "restaurant_owner" and user["username"] == self.logged_in_username:
+                        menu = user.get("menu", [])
+                        for item in menu:
+                            label = tk.Label(
+                                menu_items_frame,
+                                text=f'''Name: {item['name']}
+                                \nDescription: {item['description']}
+                                \nAverage Presentation: {item['average_presentation']}
+                                \nAverage Taste: {item['average_taste']}
+                                \nAverage Price: {item['average_price']}'''
+                            )
+                            label.pack(anchor=tk.W)
+
+                            edit_button = tk.Button(
+                                menu_items_frame,
+                                text="Edit",
+                                command=lambda i=item: self.edit_menu_item(i)
+                            )
+                            
+                            edit_button.pack(anchor=tk.W)
+                            
+                            delete_button = tk.Button(
+                                menu_items_frame, 
+                                text="Delete Item",
+                                command=lambda deleted_item=item: self.delete_menu_item(deleted_item)
+                            )
+                            delete_button.pack(anchor=tk.W)
+
+                        break
+
+        canvas.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox(tk.ALL))
+
+    
+    
+    def delete_menu_item(self, item):
+        
+        # Function to delete a menu item
+
+        # Confirm deletion with user
+        confirmation = messagebox.askyesno("Confirmation", f"Are you sure you want to delete '{item['name']}' from the menu?")
+
+        if confirmation:
+            
+            try:
+                # Find the restaurant owner's object based on the logged-in username
+                username = self.logged_in_username
+                if username is None:
+                    messagebox.showerror("Error", "Username not found!")
+                    return
+
+                if os.path.exists("restaurantOwners.json"):
+                    
+                    with open("restaurantOwners.json", 'r+') as f:
+                        data = json.load(f)
+                        for user in data:
+                            
+                            if user["user_type"] == "restaurant_owner" and user["username"] == username:
+                                
+                                if "menu" in user:
+                                    
+                                    for menu_item in user["menu"]:
+                                        
+                                        if menu_item == item:
+                                            user["menu"].remove(menu_item)
+                                            f.seek(0)
+                                            json.dump(data, f, indent=4)
+                                            f.truncate()
+                                            messagebox.showinfo("Success", "Menu item deleted successfully!")
+                                            self.restaurant_owner_home_page()
+                                            return
+                                    # If the item is not found in the menu
+                                    messagebox.showerror("Error", "Menu item not found!")
+                                    return
+                                else:
+                                    # If 'menu' key is not found
+                                    messagebox.showerror("Error", "Menu not found for the restaurant owner!")
+                                    return
+                        # If 'restaurant_owner' user type not found
+                        messagebox.showerror("Error", "User not found!")
+                else:
+                    messagebox.showerror("Error", "restaurantOwners.json not found!")
+            except Exception as e:
+                messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
+
+    
+    def add_menu_item(self):
+        
+        self.clear_window()
+        self.root.title("Add Menu Item")
+
+        close_button = tk.Button(self.root, text="x", command=self.restaurant_owner_home_page)
+        close_button.pack(side="top", anchor="e")
+
+        self.dish_name_label = tk.Label(self.root, text="Dish Name:")
+        self.dish_name_label.pack()
+        self.dish_name_entry = tk.Entry(self.root)
+        self.dish_name_entry.pack()
+
+        self.dish_description_label = tk.Label(self.root, text="Dish Description:")
+        self.dish_description_label.pack()
+        self.dish_description_entry = tk.Entry(self.root)
+        self.dish_description_entry.pack()
+
+
+        submit_button = tk.Button(self.root, text="Submit", command=self.submit_menu_item)
+        submit_button.pack()
+
+    
+
+    def submit_menu_item(self):
+        
+        dish_name = self.dish_name_entry.get()
+        dish_description = self.dish_description_entry.get()
+    
+
+        if not all([dish_name, dish_description]): 
+            messagebox.showerror("Error", "All fields are required!")
+            return
+
+
+        # Retrieve the username of the logged-in user
+        username = self.logged_in_username
+
+        if username is None:
+            messagebox.showerror("Error", "Username not found!")
+            return
+
+        new_item = {
+            "name": dish_name,
+            "description": dish_description,
+            "average_presentation": 0,
+            "average_taste": 0,
+            "average_price": 0,
+            "number_of_ratings": 0
+        }
+
+        # Find the correct user in the restaurantOwners.json file and append the new item to their menu
+        if os.path.exists("restaurantOwners.json"):
+            with open("restaurantOwners.json", 'r+') as f:
+                data = json.load(f)
+                for user in data:
+                    if user["user_type"] == "restaurant_owner" and user["username"] == username:
+                        if "menu" not in user:
+                            user["menu"] = []
+                        user["menu"].append(new_item)
+                        f.seek(0)
+                        json.dump(data, f, indent=4)
+                        messagebox.showinfo("Success", "Menu item added successfully!")
+                        self.restaurant_owner_home_page()
+                        return
+        else:
+            messagebox.showerror("Error", "restaurantOwners.json not found!")
+
+
+
+    def edit_menu_item(self, item):
+        # Function to edit a menu item
+        self.clear_window()
+
+        # Set up the window title
+        self.root.title("Edit Menu Item")
+
+        # Create a frame for the edit form
+        edit_frame = tk.Frame(self.root)
+        edit_frame.pack()
+
+        # Create a close button to return to my_menu function
+        close_button = tk.Button(edit_frame, text="x", command=self.my_menu)
+        close_button.pack(side="top", anchor="e")
+
+        # Create labels and entry fields for dish name and description
+        tk.Label(edit_frame, text="Dish Name:").pack()
+        self.edit_dish_name_entry = tk.Entry(edit_frame)
+        self.edit_dish_name_entry.insert(0, item['name'])
+        self.edit_dish_name_entry.pack()
+
+        tk.Label(edit_frame, text="Dish Description:").pack()
+        self.edit_dish_description_entry = tk.Entry(edit_frame)
+        self.edit_dish_description_entry.insert(0, item['description'])
+        self.edit_dish_description_entry.pack()
+
+        # Create a submit button to trigger submit_edit_menu_item function
+        submit_button = tk.Button(edit_frame, text="Submit", command=lambda: self.submit_edit_menu_item(item))
+        submit_button.pack()
+
+    
+
+    def submit_edit_menu_item(self, item):
+        # Function to submit edited menu item
+        new_name = self.edit_dish_name_entry.get()
+        new_description = self.edit_dish_description_entry.get()
+
+        # Find the correct user in the restaurantOwners.json file and update the menu item
+        username = self.logged_in_username
+        if username is None:
+            messagebox.showerror("Error", "Username not found!")
+            return
+
+        if os.path.exists("restaurantOwners.json"):
+            with open("restaurantOwners.json", 'r+') as f:
+                data = json.load(f)
+                for user in data:
+                    if user["user_type"] == "restaurant_owner" and user["username"] == username:
+                        if "menu" in user:
+                            for menu_item in user["menu"]:
+                                if menu_item == item:
+                                    menu_item['name'] = new_name
+                                    menu_item['description'] = new_description
+                                    f.seek(0)
+                                    json.dump(data, f, indent=4)
+                                    f.truncate()
+                                    messagebox.showinfo("Success", "Menu item updated successfully!")
+                                    self.my_menu()
+                                    return
+                            # If the item is not found in the menu
+                            messagebox.showerror("Error", "Menu item not found!")
+                            return
+                        else:
+                            # If 'menu' key is not found
+                            messagebox.showerror("Error", "Menu not found for the restaurant owner!")
+                            return
+                # If 'restaurant_owner' user type not found
+                messagebox.showerror("Error", "User not found!")
+        else:
+            messagebox.showerror("Error", "restaurantOwners.json not found!")
+
+    
+
+    def sign_out(self):
+        self.clear_window()
+        self.start_page()
+
+    
+
+    def hide_owner_entries(self):
+        self.restaurant_name_label.pack_forget()
+        self.restaurant_name_entry.pack_forget()
+        self.restaurant_address_label.pack_forget()
+        self.restaurant_address_entry.pack_forget()
+        self.restaurant_number_label.pack_forget()
+        self.restaurant_number_entry.pack_forget()
+
+
+
+    def show_owner_entries(self):
+        self.restaurant_name_label.pack()
+        self.restaurant_name_entry.pack()
+        self.restaurant_address_label.pack()
+        self.restaurant_address_entry.pack()
+        self.restaurant_number_label.pack()
+        self.restaurant_number_entry.pack()
+
+
+
+    def clear_window(self):
+        for widget in self.root.winfo_children():
+            widget.pack_forget()
+
+
+
+if __name__ == "__main__":
+    
+    root = tk.Tk()
+    app = UserManagementSystem(root)
+    root.mainloop()
+
